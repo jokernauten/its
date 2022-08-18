@@ -81,7 +81,7 @@ module "eks" {
     subnet_ids = module.vpc.private_subnets
 
     tags = {
-        Name = var.eks_cluster_name
+        Name = var.cluster_name
     }
 
     eks_managed_node_group_defaults = {
