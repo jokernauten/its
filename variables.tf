@@ -9,6 +9,7 @@ variable "public_subnet_name" {
 variable "private_subnet_name" {
 }
 variable "instance_type" {
+    type = list(string)
 }
 variable "max_size" {
 }
