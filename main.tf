@@ -97,7 +97,7 @@ module "eks" {
             min_size     = var.min_size
             max_size     = var.max_size
             desired_size = var.desired_size
-            instance_types = instance_type
+            instance_types = var.instance_type
             capacity_type  = "SPOT"
             
             tags = {
