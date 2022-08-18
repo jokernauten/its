@@ -10,3 +10,11 @@ variable "private_subnet_name" {
 }
 variable "instance_type" {
 }
+variable "max_size" {
+}
+variable "min_size" {
+}
+variable "desired_size" {
+}
+variable "disk_size" {
+}

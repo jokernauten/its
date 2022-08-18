@@ -88,7 +88,7 @@ module "eks" {
     }
 
     eks_managed_node_group_defaults = {
-        disk_size      = 50
+        disk_size      = var.disk_size
         instance_types = var.instance_type
     }
 
@@ -97,26 +97,18 @@ module "eks" {
             vpc_id = module.vpc.vpc_id
             subnet_ids = module.vpc.private_subnets
 
-            min_size     = 2
-            max_size     = 10
-            desired_size = 2
+            min_size     = var.min_size
+            max_size     = var.max_size
+            desired_size = var.desired_size
             instance_types = instance_type
             capacity_type  = "SPOT"
             
             tags = {
-                Environment = "dev"
+                Environment = var.env_tag
                 Terraform   = "true"
             }
         }
     }
-
-  aws_auth_users = [
-    {
-      userarn  = "arn:aws:iam::489194400276:user/developer-user1"
-      username = "developer-user1"
-      groups   = ["system:masters"]
-    },
-  ]
     
 }
 
