@@ -3,7 +3,11 @@ terraform {
 }
 
 provider "aws" {
-    region = var.region
+    region = "us-east-1"
+}
+
+terraform {
+  backend "s3" {}
 }
 
 data "aws_availability_zones" "azs" {
@@ -42,7 +46,7 @@ module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
   version = "3.14.2"
 
-  name = "grid-vpc"
+  name = var.vpc_name
   cidr = "10.0.0.0/16"
 
   azs = data.aws_availability_zones.azs.names
@@ -57,17 +61,17 @@ module "vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = "grid-vpc"
+    Name = var.vpc_name
     Terraform = "true"
-    Environment = "dev"
+    Environment = var.env_tag
   }
 
   public_subnet_tags = {
-      Name = "grid-private-subnet"
+      Name = var.public_subnet_name
   }
 
   private_subnet_tags = {
-      Name = "grid-public-subnet"
+      Name = var.private_subnet_name
   }
 }
 
@@ -80,12 +84,12 @@ module "eks" {
     subnet_ids = module.vpc.private_subnets
 
     tags = {
-        Name = "eks-cluster"
+        Name = var.eks_cluster_name
     }
 
     eks_managed_node_group_defaults = {
         disk_size      = 50
-        instance_types = ["t2.micro"]
+        instance_types = var.instance_type
     }
 
     eks_managed_node_groups = {
@@ -96,7 +100,7 @@ module "eks" {
             min_size     = 2
             max_size     = 10
             desired_size = 2
-            instance_types = ["t2.medium"]
+            instance_types = instance_type
             capacity_type  = "SPOT"
             
             tags = {

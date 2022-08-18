@@ -1,8 +1,12 @@
-variable "region" {
-  default = "us-east-1"
-  description = "AWS Region"
+variable "eks_cluster_name" {
 }
-
-variable "cluster_name" {
-  default = "eks-cluster"
+variable "vpc_name" {
+}
+variable "env_tag" {
+}
+variable "public_subnet_name" {
+}
+variable "private_subnet_name" {
+}
+variable "instance_type" {
 }
