@@ -6,10 +6,6 @@ provider "aws" {
     region = "us-east-1"
 }
 
-terraform {
-  backend "s3" {}
-}
-
 data "aws_availability_zones" "azs" {
     state = "available"
 }
