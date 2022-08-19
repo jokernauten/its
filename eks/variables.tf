@@ -12,7 +12,7 @@ variable "public_subnet_name" {
 variable "private_subnet_name" {
     type = list(string)
 }
-variable "public_subnets" {
+variable "public_subnet" {
     type = list(string)
 }
 variable "private_subnet" {
