@@ -47,8 +47,8 @@ module "vpc" {
   cidr = var.vpc_cidr
 
   azs                       = data.aws_availability_zones.azs.names
-  private_subnets           = var.private_subnet
-  public_subnets            = var.public_subnet
+  private_subnets           = var.private_subnets
+  public_subnets            = var.public_subnets
   enable_nat_gateway        = true
   single_nat_gateway        = true
   one_nat_gateway_per_az    = false
@@ -63,11 +63,11 @@ module "vpc" {
   }
 
   public_subnet_tags = {
-      Name = var.public_subnet_name
+      Name = "public-subnet - ${element(data.aws_availability_zones.azs.names, count.index)}"
   }
 
   private_subnet_tags = {
-      Name = var.private_subnet_name
+      Name = "private-subnet - ${element(data.aws_availability_zones.azs.names, count.index)}"
   }
 }
 
