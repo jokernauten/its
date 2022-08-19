@@ -45,8 +45,7 @@ module "vpc" {
 
   name = var.vpc_name
   cidr = var.vpc_cidr
-
-  count                     = "${length(data.aws_availability_zones.azs)}"
+  
   azs                       = data.aws_availability_zones.azs.names
   private_subnets           = var.private_subnet
   public_subnets            = var.public_subnet
