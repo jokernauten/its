@@ -7,11 +7,13 @@ variable "vpc_cidr" {
 variable "env_tag" {
     type = string
 }
-variable "public_subnets" {
-    type = list(string)
+variable "private_subnet_name" {
 }
-variable "private_subnets" {
-    type = list(string)
+variable "public_subnet_name" {
+}
+variable "public_subnet" {
+}
+variable "private_subnet" {
 }
 variable "instance_type" {
 }
