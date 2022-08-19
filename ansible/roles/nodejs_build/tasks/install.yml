@@ -1,12 +1,4 @@
 ---
-- name: Add NodeSource yum repository
-  shell: 'curl --silent --location https://rpm.nodesource.com/setup_16.x | bash -'
-
-- name: Installing "{{ packages }}"
-  yum:
-    name:  "{{ packages }}"
-    state: latest
-
 - name: Clone a private repository
   git:
     repo: "{{ git_repo_url }}"
@@ -15,12 +7,19 @@
     accept_hostkey: yes
 #    clone: yes
 
-- name: Install packages based on package.json using the npm
-  npm:
-    path: "{{ repo_path }}"
-    state: present  
-      
-- name: Build app
-  command: npm run build
-  args:
-    chdir: "{{ repo_path }}"
+- name: Retrieve an authentication token and authenticate Docker client
+  shell: 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 489194400276.dkr.ecr.us-east-1.amazonaws.com'
+
+#- name: Build docker image
+#  docker_image: 
+#    path: "{{ repo_path }}"
+#    name: "{{ image_name }}"
+#    tag: "{{ image_version }}"
+
+- name: Build an image and push it to a private repo
+  docker_image:
+    build:
+      path: "{{ repo_path }}"
+    tag: "{{ image_version }}"
+    push: yes
+    source: build

@@ -1,5 +1,1 @@
 ---
-#- name: restart redis
-#  service:
-#    name: redis.service
-#    state: restarted
