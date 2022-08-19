@@ -24,7 +24,7 @@ resource "aws_ecr_repository_policy" "its-ecr-policy" {
             "Action": [
                 "ecr:UploadLayerPart",
                 "ecr:InitiateLayerUpload",
-                "ecr:CompleteLayerUpload"
+                "ecr:CompleteLayerUpload",
                 "ecr:PutImage"
             ]
         }
