@@ -47,6 +47,7 @@ module "vpc" {
   cidr = var.vpc_cidr
 
   azs                       = data.aws_availability_zones.azs.names
+  count                     = "${length(data.aws_availability_zones.azs)}"
   private_subnets           = var.private_subnets
   public_subnets            = var.public_subnets
   enable_nat_gateway        = true
