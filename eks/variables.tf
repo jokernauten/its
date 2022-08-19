@@ -18,6 +18,7 @@ variable "private_subnet" {
     type = list(string)
 }
 variable "instance_type" {
+    type = list(string)
 }
 variable "max_size" {
 }
