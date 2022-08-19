@@ -1,7 +1,7 @@
 git_repo_url: git@github.com:jokernauten/its-testtask-node.git
 repo_path: ./its-nodejs
 repo_branch: master
+region: us-east-1
 
 image_name: its-node
-image_version: v1
-ecr_repositoryUri: 489194400276.dkr.ecr.us-east-1.amazonaws.com
+image_version: latest

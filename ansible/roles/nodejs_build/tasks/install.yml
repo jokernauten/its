@@ -7,20 +7,30 @@
     accept_hostkey: yes
 #    clone: yes
 
-- name: Retrieve an authentication token and authenticate Docker client
-  shell: 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 489194400276.dkr.ecr.us-east-1.amazonaws.com'
+- name: Install docker-py for build docker
+  pip:
+    name: boto3
+    state: present
 
-#- name: Build docker image
-#  docker_image: 
-#    path: "{{ repo_path }}"
-#    name: "{{ image_name }}"
-#    tag: "{{ image_version }}"
+- name: Install boto3
+  pip:
+    name: boto3
+    state: present
+
+- name: Create repository
+  ecs_ecr:
+    name: "{{ image_name }}"
+    region: "{{ region }}"
+  register: ecr_repo
+
+- name: Retrieve an authentication token and authenticate Docker client
+  shell: 'aws ecr get-login-password --region {{ region }} | docker login --username AWS --password-stdin {{ ecr_repo.repository.repositoryUri }}'
 
 - name: Build an image and push it to a private repo
   docker_image:
     build:
       path: "{{ repo_path }}"
-    name: "{{ ecr_repositoryUri }}/{{ image_name }}"
+    name: "{{ ecr_repo.repository.repositoryUri }}"
     tag: "{{ image_version }}"
     push: yes
     source: build
