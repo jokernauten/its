@@ -1,0 +1,22 @@
+---
+- name: Installing "{{ packages }}"
+  yum:
+    name:  "{{ packages }}"
+    state: latest
+
+- name: Clone a private repository
+  git:
+    repo: "{{ git_repo_url }}"
+    dest: "{{ repo_path }}"
+    version: "{{ repo_branch }}"
+    accept_hostkey: yes
+
+- name: Install packages based on package.json using the npm
+  npm:
+    path: "{{ repo_path }}"
+    state: present  
+      
+- name: Build app
+  command: npm run build
+  args:
+    chdir: "{{ repo_path }}"

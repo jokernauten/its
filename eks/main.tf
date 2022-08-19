@@ -44,17 +44,17 @@ module "vpc" {
   version = "3.14.2"
 
   name = var.vpc_name
-  cidr = "10.0.0.0/16"
+  cidr = var.vpc_cidr
 
-  azs = data.aws_availability_zones.azs.names
-  private_subnets = var.public_subnets
-  public_subnets  = var.private_subnet
-  enable_nat_gateway = true
-  single_nat_gateway = true
-  one_nat_gateway_per_az = false
-  reuse_nat_ips       = true
-  external_nat_ip_ids = "${aws_eip.nat.*.id}" 
-  enable_dns_hostnames = true
+  azs                       = data.aws_availability_zones.azs.names
+  private_subnets           = var.public_subnets
+  public_subnets            = var.private_subnet
+  enable_nat_gateway        = true
+  single_nat_gateway        = true
+  one_nat_gateway_per_az    = false
+  reuse_nat_ips             = false
+  external_nat_ip_ids       = "${aws_eip.nat.*.id}" 
+  enable_dns_hostnames      = true
 
   tags = {
     Name = var.vpc_name
@@ -112,4 +112,8 @@ provider "kubernetes" {
     host = data.aws_eks_cluster.cluster.endpoint
     token = data.aws_eks_cluster_auth.cluster.token
     cluster_ca_certificate = base64encode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
+}
+
+resource "aws_ecr_repository" "its_ecr" {
+  name = "its_ecr" 
 }

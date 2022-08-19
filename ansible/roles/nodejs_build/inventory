@@ -1,0 +1,4 @@
+aws_ansible ansible_host=35.173.253.12 ansible_port=22
+
+[aws]
+aws_ansible

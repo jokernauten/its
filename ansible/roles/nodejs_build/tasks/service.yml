@@ -1,0 +1,6 @@
+---
+#- name: add 26379/tcp port
+#  firewalld:
+#    port: 26379/tcp
+#    permanent: true
+#    state: enabled
