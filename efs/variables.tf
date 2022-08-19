@@ -1,3 +1,5 @@
+variable "efs_name" {
+}
 variable "throughput_mode" {
 }
 

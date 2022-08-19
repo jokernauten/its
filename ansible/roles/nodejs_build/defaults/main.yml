@@ -1,5 +1,5 @@
 git_repo_url: git@github.com:jokernauten/its-testtask-node.git
-repo_path: .
+repo_path: /home/ec2-user/its-nodejs
 repo_branch: master
 
 packages:

@@ -1,4 +1,7 @@
 ---
+- name: Add NodeSource yum repository
+  shell: 'curl --silent --location https://rpm.nodesource.com/setup_16.x | bash -'
+
 - name: Installing "{{ packages }}"
   yum:
     name:  "{{ packages }}"
@@ -10,6 +13,7 @@
     dest: "{{ repo_path }}"
     version: "{{ repo_branch }}"
     accept_hostkey: yes
+#    clone: yes
 
 - name: Install packages based on package.json using the npm
   npm:

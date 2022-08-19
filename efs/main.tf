@@ -12,6 +12,6 @@ resource "aws_efs_file_system" "efs" {
    throughput_mode = var.throughput_mode
    encrypted = "true"
  tags = {
-     Name = "its-efs"
+     Name = var.efs_name
    }
  }
