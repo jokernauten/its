@@ -1,5 +1,5 @@
-git_repo_url: git@github.com:jokernauten/its-testtask-node.git
-repo_path: ./its-nodejs
+#git_repo_url: git@github.com:jokernauten/its-testtask-node.git
+repo_path: ..
 repo_branch: master
 region: us-east-1
 
