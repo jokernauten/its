@@ -1,2 +1,0 @@
-variable "ecr_name" {
-}

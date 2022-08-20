@@ -1,5 +1,5 @@
 --- 
 - name: Deploy node application
   shell: |
-    kubectl apply -f deployment.yml
-    kubectl apply -f svc.yml
+    kubectl apply -f roles/nodejs_deploy/files/deployment.yml
+#    kubectl apply -f svc.yml

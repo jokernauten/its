@@ -30,7 +30,9 @@
   docker_image:
     build:
       path: "{{ repo_path }}"
+      platform: linux/amd64
     name: "{{ ecr_repo.repository.repositoryUri }}"
     tag: "{{ image_version }}"
     push: yes
     source: build
+   
