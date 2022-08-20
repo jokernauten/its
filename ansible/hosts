@@ -1,5 +1,0 @@
-[local]
-localhost ansible_connection=local
-
-[local:vars]
-region=us-east-1
