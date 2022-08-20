@@ -1,0 +1,38 @@
+---
+#- name: Clone a private repository
+#  git:
+#    repo: "{{ git_repo_url }}"
+#    dest: "{{ repo_path }}"
+#    version: "{{ repo_branch }}"
+#    accept_hostkey: yes
+#    clone: yes
+
+- name: Install docker-py for build docker
+  pip:
+    name: boto3
+    state: present
+
+- name: Install boto3
+  pip:
+    name: boto3
+    state: present
+
+- name: Create repository
+  ecs_ecr:
+    name: "{{ image_name }}"
+    region: "{{ region }}"
+  register: ecr_repo
+
+- name: Retrieve an authentication token and authenticate Docker client
+  shell: 'aws ecr get-login-password --region {{ region }} | docker login --username AWS --password-stdin {{ ecr_repo.repository.repositoryUri }}'
+
+- name: Build an image and push it to a private repo
+  docker_image:
+    build:
+      path: "{{ repo_path }}"
+      platform: linux/amd64
+    name: "{{ ecr_repo.repository.repositoryUri }}"
+    tag: "{{ image_version }}"
+    push: yes
+    source: build
+   

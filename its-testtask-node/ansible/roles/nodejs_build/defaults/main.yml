@@ -1,0 +1,7 @@
+#git_repo_url: git@github.com:jokernauten/its-testtask-node.git
+repo_path: ..
+repo_branch: master
+region: us-east-1
+
+image_name: its-node
+image_version: latest
